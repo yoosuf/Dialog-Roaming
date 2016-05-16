@@ -1,0 +1,106 @@
+@extends('layouts.scaffold')
+
+@section('main')
+
+
+    <section class="content-header">
+        <h1>
+            Advertisement / Edit
+            <small></small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li class="active">Advertisement/Edit</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- general form elements -->
+                <div class="box box-primary">
+
+
+                    {{ Form::model($data, ['method' => 'PATCH', 'route' => ['advertisements.update', $data->id], 'files' => true]) }}
+
+                    @if(Auth::user()->role_id === 1)
+                        {{ Form::hidden('type', 'GEN'); }}
+                    @endif
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-6">
+
+                                @if(Auth::user()->role_id !== 1)
+
+                                <div class="form-group">
+                                    {{ Form::label('type', 'Type:') }}
+                                    <br>
+                                    {{ Form::radio('type', 'SP') }} SP<br>
+                                    {{ Form::radio('type', 'SUB') }} SUB<br>
+                                    {{ Form::radio('type', 'GEN') }} GEN<br>
+                                    @if($errors->has('type'))
+                                        <p class="text-warning"> {{ $errors->first('type') }}</p>
+                                    @endif
+                                </div>
+                                @endif
+
+
+                                <div class="form-group">
+                                    {{ Form::label('title', 'Title:') }}
+                                    {{ Form::text('title', null, ['class' => 'form-control elwidth2'] ) }}
+                                    @if($errors->has('title'))
+                                        <p class="text-warning"> {{ $errors->first('title') }}</p>
+                                    @endif
+                                </div>
+
+
+                                <div class="form-group">
+                                    {{ Form::label('description', 'Description:') }}
+                                    {{ Form::textarea('description', null, ['class' => 'form-control elwidth2'] ) }}
+                                    @if($errors->has('description'))
+                                        <p class="text-warning"> {{ $errors->first('description') }}</p>
+                                    @endif
+                                </div>
+
+
+                                <div class="form-group">
+                                    {{ Form::label('banner_img', 'Banner Image:') }}
+                                    <img src="{{ $data->banner_img }}" width="200px"/>
+
+                                    {{ Form::file('banner_img') }}
+                                    @if($errors->has('banner_img'))
+                                        <p class="text-warning"> {{ $errors->first('banner_img') }}</p>
+                                    @endif
+                                </div>
+
+
+                                <div class="form-group">
+                                    {{ Form::label('external_uri', 'External URL:') }}
+                                    {{ Form::text('external_uri', null, ['class' => 'form-control elwidth2'] ) }}
+                                    @if($errors->has('external_uri'))
+                                        <p class="text-warning"> {{ $errors->first('external_uri') }}</p>
+                                    @endif
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="box-footer">
+                        {{ Form::submit('Submit', array('class' => 'btn btn-info')) }}
+
+                    </div>
+                    {{ Form::close() }}
+
+
+                </div>
+
+            </div>
+            <!--/.col (left) -->
+        </div>
+    </section>
+
+@stop

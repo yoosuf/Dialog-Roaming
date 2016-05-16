@@ -1,0 +1,15 @@
+/bootstrap/compiled.php
+/vendor
+composer.phar
+.env.*.php
+.env
+.env.php
+.DS_Store
+Thumbs.db
+.idea/workspace.xml
+.idea/
+.siteflow
+/assets
+assets
+uploads
+/uploads/*
